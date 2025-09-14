@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",                       
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,                      // generate .d.ts files for type safety if reused
+    "sourceMap": true                         // useful for debugging in Docker/production logs
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "dist",
+    "**/__tests__/**"
+  ]
+}
