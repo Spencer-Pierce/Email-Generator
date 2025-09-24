@@ -1,0 +1,60 @@
+.history-container {
+  padding: 1.5rem;
+}
+
+.history-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #f0f0f0; /* lighter heading for dark UI */
+}
+
+.history-card {
+  background: #2c2c2c; /* dark gray card */
+  border: 1px solid #444; /* subtle border */
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #f5f5f5; /* default text color inside card */
+}
+
+.history-timestamp {
+  font-size: 0.8rem;
+  color: #bbb; /* muted timestamp */
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #555;
+  padding-bottom: 0.25rem;
+}
+
+.history-section {
+  margin-top: 0.75rem;
+}
+
+.history-section p,
+.history-section pre {
+  background: #3a3a3a; /* darker gray for inner blocks */
+  padding: 0.75rem;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #e6e6e6; /* brighter text for readability */
+}
+
+.history-badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+
+.badge-generate {
+  background-color: #3b82f6; /* blue */
+}
+
+.badge-refine {
+  background-color: #10b981; /* green */
+}

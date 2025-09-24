@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import cors from "cors"; // ✅ import cors
 import MongoService from "./services/mongoService";
 import historyRoutes from "./routes/history";
 import generateRoutes from "./routes/generate";
 import refineRoutes from "./routes/refine";
 import loginRoutes from "./routes/login";
-import authMiddleware from "./middleware/authMiddleware";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +17,14 @@ const MONGO_URI =
 
 // ✅ Single MongoService instance for the whole app
 const mongoService = new MongoService(MONGO_URI, "mydatabase");
+
+// ✅ Enable CORS for frontend
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend dev server
+    credentials: true,
+  })
+);
 
 // Connect at startup
 mongoService.connect().catch((err) => {

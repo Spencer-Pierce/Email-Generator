@@ -30,7 +30,13 @@ async def generate_email(data: Prompt):
         response = client.chat.completions.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant that writes professional emails."},
+                {
+                    "role": "system", 
+                    "content": """You are an AI assistant that only helps write professional emails.
+                    If the user's prompt is not about writing emails, respond with:
+                    "I'm sorry, I can't help with that, but can I assist you with generating an email?"
+                    Otherwise, generate the email based on the prompt."""
+                },
                 {"role": "user", "content": data.prompt}
             ],
             temperature=0.7,
