@@ -5,10 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/login': 'http://localhost:3000',
-      '/generate': 'http://localhost:3000',
-      '/refine': 'http://localhost:3000',
-      '/history': 'http://localhost:3000',
+      "/login": "http://localhost:4000",
+      "/generate": "http://localhost:4000",
+      "/refine": "http://localhost:4000",
+      "/history": "http://localhost:4000",
     },
   },
 })

@@ -1,0 +1,7 @@
+a {
+  color: #60a5fa; /* light blue */
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}

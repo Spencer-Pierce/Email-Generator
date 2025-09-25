@@ -1,9 +1,10 @@
 import React from "react";
-import type { HistoryEntry } from "../types";
+import type { HistoryEntry } from "../../types";
 import "./ConversationHistory.css";
 
 interface Props {
   history: HistoryEntry[];
+  conversationId?: string; // optional prop for conversation ID
 }
 
 const ConversationHistory: React.FC<Props> = ({ history }) => {

@@ -19,7 +19,7 @@ class HistoryController {
         return;
       }
 
-      const history = await this.mongoService.findDocuments("history", { userId });
+      const history = await this.mongoService.findDocuments("history", { userId } as any);
       res.status(200).json(history);
     } catch (error) {
       console.error("Error retrieving history:", error);
@@ -42,7 +42,7 @@ class HistoryController {
         updatedAt: new Date(),
       };
 
-      const result = await this.mongoService.insertDocument("history", newEntry);
+      const result = await this.mongoService.insertDocument("history", newEntry as any);
       res.status(201).json({ message: "History added", result });
     } catch (error) {
       console.error("Error adding history:", error);
@@ -63,8 +63,8 @@ class HistoryController {
 
       const result = await this.mongoService.updateDocument(
         "history",
-        { _id: new ObjectId(id), userId },
-        updateData
+        { _id: new ObjectId(id), userId } as any,
+        updateData as any
       );
       res.status(200).json({ message: "History updated", result });
     } catch (error) {
@@ -84,7 +84,7 @@ class HistoryController {
       const { id } = req.params;
       const result = await this.mongoService.deleteDocument(
         "history",
-        { _id: new ObjectId(id), userId }
+        { _id: new ObjectId(id), userId } as any
       );
       res.status(200).json({ message: "History deleted", result });
     } catch (error) {
@@ -99,7 +99,7 @@ class HistoryController {
       ...data,
       createdAt: new Date(),
       updatedAt: new Date(),
-    });
+    } as any);
   }
 }
 

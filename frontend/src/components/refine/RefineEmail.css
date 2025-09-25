@@ -1,0 +1,168 @@
+/* Wrapper layout */
+.re-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+/* Card container */
+.re-card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* Card headers */
+.re-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.re-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.re-subtitle {
+  font-size: 0.875rem;
+  color: #aaa;
+  margin: 0.25rem 0 0;
+}
+
+/* Labels and fields */
+.re-field {
+  margin-bottom: 1rem;
+}
+
+.re-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #e4e4e4;
+  margin-bottom: 0.25rem;
+}
+
+.re-textarea,
+.re-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: #e4e4e4;
+  font-size: 0.95rem;
+}
+
+.re-textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.re-textarea:focus,
+.re-input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  background-color: #333;
+}
+
+/* Buttons */
+.re-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.re-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.re-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.re-btn-primary {
+  background-color: #2563eb;
+  color: #fff;
+}
+.re-btn-primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.re-btn-outline {
+  background-color: transparent;
+  border: 1px solid #60a5fa;
+  color: #60a5fa;
+}
+.re-btn-outline:hover:not(:disabled) {
+  background-color: #1e293b;
+}
+
+/* Alerts */
+.re-alert {
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+.re-alert-error {
+  color: #f87171;
+}
+
+/* Spinner */
+.re-spinner {
+  border: 2px solid #2a2a2a;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 5px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* Output section */
+.re-output {
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 0.75rem;
+  min-height: 140px;
+  color: #e4e4e4;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+.re-output-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-style: italic;
+}
+
+.re-pre {
+  margin: 0;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.re-placeholder {
+  color: #777;
+  font-size: 0.9rem;
+}

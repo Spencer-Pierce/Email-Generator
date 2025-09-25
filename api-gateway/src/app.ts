@@ -11,17 +11,21 @@ import refineRoutes from "./routes/refine";
 import loginRoutes from "./routes/login";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const MONGO_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/mydatabase";
+  process.env.MONGO_URI || "mongodb://localhost:27017/mydatabase";
 
 // ✅ Single MongoService instance for the whole app
-const mongoService = new MongoService(MONGO_URI, "mydatabase");
+const DB_NAME = process.env.DB_NAME || "emailgen";
+const mongoService = new MongoService(MONGO_URI, DB_NAME);
 
 // ✅ Enable CORS for frontend
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend dev server
+    origin: [
+      "http://localhost:3000", // nginx frontend in Docker
+      "http://localhost:5173", // vite dev server (optional)
+    ],
     credentials: true,
   })
 );
