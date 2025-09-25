@@ -25,6 +25,7 @@ app.use(
     origin: [
       "http://localhost:3000", // nginx frontend in Docker
       "http://localhost:5173", // vite dev server (optional)
+      "http://3.145.157.135:3000" // production frontend
     ],
     credentials: true,
   })
