@@ -11,7 +11,7 @@ if not openai_api_key:
     raise ValueError("OPENAI_API_KEY not found")
 print("✅ OpenAI API Key loaded successfully")
 
-client = openai.OpenAI(api_key=openai_api_key)  # new client
+client = openai.OpenAI(api_key=openai_api_key)
 
 app = FastAPI()
 app.add_middleware(
@@ -47,3 +47,7 @@ async def generate_email(data: Prompt):
     except Exception as e:
         print("Error calling OpenAI:", e)
         return {"error": str(e)}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile.node
+    container_name: backend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+      - llm-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/emailgen
+      - DB_NAME=emailgen
+      - JWT_SECRET=${JWT_SECRET}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LLM_SERVICE_URL=http://llm-service:8000
+
+  llm-service:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile.python
+    container_name: llm-service
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

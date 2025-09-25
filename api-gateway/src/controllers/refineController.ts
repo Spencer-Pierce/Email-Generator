@@ -10,9 +10,9 @@ class RefineController {
   private mongoService: MongoService;
   private llmServiceUrl: string;
 
-  constructor(mongoService: MongoService, llmServiceUrl = "http://localhost:5000/generate") {
+  constructor(mongoService: MongoService, llmServiceUrl = "http://llm-service:8000") {
     this.mongoService = mongoService;
-    this.llmServiceUrl = llmServiceUrl;
+    this.llmServiceUrl = llmServiceUrl || process.env.LLM_SERVICE_URL || "http://llm-service:8000";
   }
 
   public async refineEmail(req: AuthenticatedRequest, res: Response): Promise<void> {
@@ -43,18 +43,18 @@ class RefineController {
       );
 
       const recentHistory = historyEntries
-        .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+        .sort((a, b) => new Date(a.createdAt ?? 0).getTime() - new Date(b.createdAt ?? 0).getTime())
         .slice(-5);
 
       // Step 3: Build a chained prompt
       let fullPrompt = "";
       for (const entry of recentHistory) {
-        fullPrompt += `User: ${entry.input.prompt || entry.input.originalEmail}\nAI: ${entry.response}\n`;
+        fullPrompt += `User: ${entry?.input?.prompt || entry?.input?.originalEmail}\nAI: ${entry.response}\n`;
       }
       fullPrompt += `User wants to refine an email with instructions: "${instructions}"\nOriginal Email:\n${originalEmail}\nAI:`;
 
       // Step 4: Call Python LLM microservice
-      const response = await axios.post(this.llmServiceUrl, { prompt: fullPrompt });
+      const response = await axios.post(`${this.llmServiceUrl}/generate`, { prompt: fullPrompt });
       const refinedEmail = response.data.email;
 
       // Step 5: Save new entry to MongoDB

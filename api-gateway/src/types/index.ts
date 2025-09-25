@@ -52,10 +52,10 @@ export interface HistoryEntry {
   _id?: string;
   userId: string;
   conversationId: string;
-  type: "generate" | "refine";
-  input: { prompt?: string; originalEmail?: string; instructions?: string };
-  prompt: string;
-  response: string;
-  createdAt: Date;
-  updatedAt: Date;
+  type?: "generate" | "refine";
+  input?: { prompt?: string; originalEmail?: string; instructions?: string };
+  prompt?: string;
+  response?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

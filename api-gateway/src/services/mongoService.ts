@@ -1,4 +1,4 @@
-import { MongoClient, Db, Collection } from "mongodb";
+import { MongoClient, Db, Collection, Document, OptionalUnlessRequiredId } from "mongodb";
 
 class MongoService {
   private client: MongoClient;
@@ -13,49 +13,40 @@ class MongoService {
   }
 
   async connect(): Promise<Db> {
-    // In v4+, just connect() — MongoClient handles pooling
-    if (!this.client.topology?.isConnected()) {
-      await this.client.connect();
-      console.log(`✅ Connected to MongoDB database: ${this.dbName}`);
-    }
+    await this.client.connect(); // no topology check anymore
+    console.log(`✅ Connected to MongoDB database: ${this.dbName}`);
     return this.client.db(this.dbName);
   }
 
-  async getCollection<T>(collectionName: string): Promise<Collection<T>> {
+  async getCollection<T extends Document>(collectionName: string): Promise<Collection<T>> {
     const db = await this.connect();
     return db.collection<T>(collectionName);
   }
 
-  async insertDocument<T>(collectionName: string, document: any) {
-    const collection = await this.getCollection(collectionName);
+  async insertDocument<T extends Document>(collectionName: string, document: OptionalUnlessRequiredId<T>) {
+    const collection = await this.getCollection<T>(collectionName);
     return collection.insertOne(document);
   }
 
-  async findDocuments<T>(collectionName: string, query: any): Promise<T[]> {
-    const collection = await this.getCollection(collectionName);
-    // Use `as T[]` to tell TypeScript the documents are of type T
+  async findDocuments<T extends Document>(collectionName: string, query: OptionalUnlessRequiredId<T>): Promise<T[]> {
+    const collection = await this.getCollection<T>(collectionName);
     return (await collection.find(query).toArray()) as T[];
   }
 
-  async updateDocument(collectionName: string, query: any, update: any) {
-    const collection = await this.getCollection(collectionName);
+  async updateDocument<T extends Document>(collectionName: string, query: OptionalUnlessRequiredId<T>, update: Partial<T>) {
+    const collection = await this.getCollection<T>(collectionName);
     return collection.updateOne(query, { $set: update });
   }
 
-  async deleteDocument(collectionName: string, query: any) {
-    const collection = await this.getCollection(collectionName);
+  async deleteDocument<T extends Document>(collectionName: string, query: OptionalUnlessRequiredId<T>) {
+    const collection = await this.getCollection<T>(collectionName);
     return collection.deleteOne(query);
   }
 
   async getHistoryByUser(userId: string) {
-    if (!this.client) throw new Error("MongoDB not connected");
-    return this.client
-      .db(this.dbName)
-      .collection("history")
-      .find({ userId })
-      .toArray();
+    const collection = await this.getCollection<Document>("history");
+    return collection.find({ userId }).toArray();
   }
-
 
   async close() {
     await this.client.close();
